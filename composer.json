@@ -1,0 +1,16 @@
+{
+    "name": "kzykhys/parallel",
+    "description": "Simple multitasking library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kazuyuki Hayashi",
+            "email": "hayashi@valnur.net"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}
