@@ -6,6 +6,8 @@
  */
 
 require __DIR__ . '/../Stub/CoverageCollector.php';
+require __DIR__ . '/../Stub/CoverageCollectorThread.php';
+require __DIR__ . '/../Stub/StubParallel.php';
 
 class ParallelTest extends PHPUnit_Framework_TestCase
 {
@@ -52,6 +54,18 @@ class ParallelTest extends PHPUnit_Framework_TestCase
         $thread = new \KzykHys\Thread\Thread(new CoverageCollector());
         $thread->start();
         $thread->wait();
+    }
+
+    public function testCoverageOnChildProcessWithServer()
+    {
+        $parallel = new StubParallel();
+        $values = $parallel->values([
+            function () { return 'item'; },
+            'foo' => function () { return new \DateTime('2013-01-01'); }
+        ]);
+
+        $this->assertEquals('item', $values[0]);
+        $this->assertInstanceOf('DateTime', $values['foo']);
     }
 
 } 
