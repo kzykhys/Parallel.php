@@ -93,11 +93,15 @@ class Parallel
     public function isSupported()
     {
         if (!function_exists('pcntl_fork')) {
+            // @codeCoverageIgnoreStart
             return false;
+            // @codeCoverageIgnoreEnd
         }
 
         if (!in_array(substr(PHP_SAPI, 0, 3), ['cgi', 'cli'])) {
+            // @codeCoverageIgnoreStart
             return false;
+            // @codeCoverageIgnoreEnd
         }
 
         return true;

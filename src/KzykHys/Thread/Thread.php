@@ -84,7 +84,9 @@ class Thread implements Runnable
     protected function fork()
     {
         if (($this->pid = pcntl_fork()) == -1) {
+            // @codeCoverageIgnoreStart
             throw new \RuntimeException('Unable to fork child process');
+            // @codeCoverageIgnoreEnd
         }
     }
 

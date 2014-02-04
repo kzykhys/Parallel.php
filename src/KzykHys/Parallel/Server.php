@@ -63,14 +63,18 @@ class Server
     public function listen()
     {
         if ($this->listening) {
+            // @codeCoverageIgnoreStart
             throw new \LogicException('Server is already listening');
+            // @codeCoverageIgnoreEnd
         }
 
         $this->file = sys_get_temp_dir() . '/parallel' . posix_getpid() . '.sock';
         $address = 'unix://' . $this->file;
 
         if (($this->socket = stream_socket_server($address)) === false) {
+            // @codeCoverageIgnoreStart
             throw new \RuntimeException('Failed to open unix socket: ' . $address);
+            // @codeCoverageIgnoreEnd
         }
 
         stream_set_blocking($this->socket, 0);
@@ -86,7 +90,9 @@ class Server
     public function accept()
     {
         if (($client = stream_socket_accept($this->socket)) === false) {
+            // @codeCoverageIgnoreStart
             return false;
+            // @codeCoverageIgnoreEnd
         }
 
         $data = '';
