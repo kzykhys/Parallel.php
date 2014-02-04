@@ -15,5 +15,5 @@ script:
   - phpunit -c phpunit.xml.dist --coverage-php build/logs/clover-parent.cov
 
 after_script:
-  - php phpcov.phar --merge --clover build/logs/coverage.xml build/logs
+  - php phpcov.phar --merge --clover build/logs/clover.xml build/logs
   - php vendor/bin/coveralls
