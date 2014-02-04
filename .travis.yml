@@ -1,17 +1,19 @@
 language: php
 
 php:
-- 5.5
-- 5.4
+  - 5.5
+  - 5.4
 
 before_script:
-- curl -s http://getcomposer.org/installer | php
-- php composer.phar install --dev --no-interaction
-- php composer.phar require satooshi/php-coveralls:dev-master
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev --no-interaction
+  - php composer.phar require satooshi/php-coveralls:dev-master
+  - wget https://phar.phpunit.de/phpcov.phar
 
 script:
-- mkdir -p build/logs
-- phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
+  - mkdir -p build/logs
+  - phpunit -c phpunit.xml.dist --coverage-php build/logs/clover-parent.cov
 
 after_script:
-- php vendor/bin/coveralls
+  - php phpcov.phar --merge --clover build/logs/coverage.xml build/logs
+  - php vendor/bin/coveralls

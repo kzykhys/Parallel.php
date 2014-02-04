@@ -5,6 +5,8 @@
  * (C) 2013 Kazuyuki Hayashi
  */
 
+require __DIR__ . '/../Stub/CoverageCollector.php';
+
 class ParallelTest extends PHPUnit_Framework_TestCase
 {
 
@@ -43,6 +45,13 @@ class ParallelTest extends PHPUnit_Framework_TestCase
         });
 
         $this->assertEquals([2, 4, 6], $values);
+    }
+
+    public function testCoverageOnChildProcess()
+    {
+        $thread = new \KzykHys\Thread\Thread(new CoverageCollector());
+        $thread->start();
+        $thread->wait();
     }
 
 } 

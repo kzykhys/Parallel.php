@@ -8,6 +8,10 @@
             "email": "hayashi@valnur.net"
         }
     ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "phpunit/php-code-coverage": "1.2.*"
+    },
     "autoload": {
         "psr-0": {
             "": "src/"
