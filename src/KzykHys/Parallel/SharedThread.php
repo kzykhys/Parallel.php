@@ -23,19 +23,7 @@ class SharedThread extends Thread
     public function start()
     {
         $this->fork();
-
-        if (!$this->pid) {
-            $file    = sys_get_temp_dir() . '/parallel' . posix_getppid() . '.sock';
-            $address = 'unix://' . $file;
-            $result  = $this->run();
-
-            if ($client = stream_socket_client($address)) {
-                stream_socket_sendto($client, serialize([posix_getpid(), $result]));
-                fclose($client);
-            }
-
-            exit;
-        }
+        $this->waitChild();
     }
 
     /**
@@ -48,6 +36,22 @@ class SharedThread extends Thread
         }
 
         return null;
+    }
+
+    protected function waitChild()
+    {
+        if (!$this->pid) {
+            $file    = sys_get_temp_dir() . '/parallel' . posix_getppid() . '.sock';
+            $address = 'unix://' . $file;
+            $result  = $this->run();
+
+            if ($client = stream_socket_client($address)) {
+                stream_socket_sendto($client, serialize([posix_getpid(), $result]));
+                fclose($client);
+            }
+
+            exit;
+        }
     }
 
 } 
