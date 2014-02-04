@@ -34,7 +34,7 @@ class SimpleWorker implements Runnable
     public function __construct(callable $callable, array $args = [])
     {
         $this->callable = $callable;
-        $this->args = $args;
+        $this->args     = $args;
     }
 
     /**

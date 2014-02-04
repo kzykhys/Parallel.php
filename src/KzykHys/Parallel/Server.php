@@ -69,7 +69,7 @@ class Server
         }
 
         $this->file = sys_get_temp_dir() . '/parallel' . posix_getpid() . '.sock';
-        $address = 'unix://' . $this->file;
+        $address    = 'unix://' . $this->file;
 
         if (($this->socket = stream_socket_server($address)) === false) {
             // @codeCoverageIgnoreStart
