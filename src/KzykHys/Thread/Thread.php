@@ -52,7 +52,7 @@ class Thread implements Runnable
 
         if (!$this->pid) {
             $this->run();
-            exit;
+            pcntl_wexitstatus(null);
         }
     }
 

@@ -50,8 +50,9 @@ class SharedThread extends Thread
                 fclose($client);
             }
 
-            exit;
+            posix_kill(posix_getpid(), SIGHUP);
+            return;
         }
     }
 
-} 
+}
