@@ -54,5 +54,4 @@ class SharedThread extends Thread
             return;
         }
     }
-
 }

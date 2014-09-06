@@ -52,6 +52,11 @@ class Thread implements Runnable
 
         if (!$this->pid) {
             $this->run();
+
+            if (substr(PHP_SAPI, 0, 3) == 'cli') {
+                exit;
+            }
+
             pcntl_wexitstatus(null);
         }
     }
