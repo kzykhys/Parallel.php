@@ -16,6 +16,10 @@ use KzykHys\Thread\Thread;
  */
 class Parallel
 {
+    public function __construct()
+    {
+        set_error_handler(array(Server::getInstance(), 'killZombie'), E_ALL);
+    }
 
     /**
      * Run multiple tasks asynchronously
@@ -135,8 +139,10 @@ class Parallel
             $thread->start();
         }
 
+        $server = Server::getInstance();
         while ($count) {
-            if ($data = Server::getInstance()->accept()) {
+            if ($server->accept()) {
+                $data = $server->getData();
                 $results[$data[0]] = $data[1];
                 $count--;
             }
@@ -152,5 +158,4 @@ class Parallel
 
         return $result;
     }
-
-} 
+}

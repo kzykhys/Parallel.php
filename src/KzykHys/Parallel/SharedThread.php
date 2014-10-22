@@ -16,7 +16,6 @@ use KzykHys\Thread\Thread;
  */
 class SharedThread extends Thread
 {
-
     /**
      * {@inheritdoc}
      */

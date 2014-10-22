@@ -14,7 +14,6 @@ namespace KzykHys\Parallel;
  */
 class Server
 {
-
     /**
      * @var Server
      */
@@ -34,6 +33,11 @@ class Server
      * @var bool
      */
     private $listening = false;
+
+    /**
+     * @var
+     */
+    private $data;
 
     /**
      * @return Server
@@ -103,7 +107,9 @@ class Server
 
         fclose($client);
 
-        return unserialize($data);
+        $this->data = unserialize($data);
+
+        return true;
     }
 
     /**
@@ -116,4 +122,16 @@ class Server
         $this->listening = false;
     }
 
-} 
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    public function killZombie()
+    {
+        fclose($this->socket);
+        $this->listening = false;
+
+        return true;
+    }
+}

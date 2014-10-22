@@ -12,7 +12,6 @@ namespace KzykHys\Thread;
  */
 class Thread implements Runnable
 {
-
     /**
      * @var int
      */
@@ -94,5 +93,4 @@ class Thread implements Runnable
             // @codeCoverageIgnoreEnd
         }
     }
-
 }
