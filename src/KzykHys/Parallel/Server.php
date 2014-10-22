@@ -129,7 +129,7 @@ class Server
 
     public function killZombie()
     {
-        if (!is_null($this->socket)) {
+        if (!is_null($this->socket) && get_resource_type($this->socket) != 'Unknown') {
             fclose($this->socket);
         }
 
