@@ -129,7 +129,10 @@ class Server
 
     public function killZombie()
     {
-        fclose($this->socket);
+        if (!is_null($this->socket)) {
+            fclose($this->socket);
+        }
+
         $this->listening = false;
 
         return true;
