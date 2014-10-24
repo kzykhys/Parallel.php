@@ -75,6 +75,10 @@ class Server
         $this->file = sys_get_temp_dir() . '/parallel' . posix_getpid() . '.sock';
         $address    = 'unix://' . $this->file;
 
+        if (file_exists($this->file)) {
+            unlink($this->file);
+        }
+
         if (($this->socket = stream_socket_server($address)) === false) {
             // @codeCoverageIgnoreStart
             throw new \RuntimeException('Failed to open unix socket: ' . $address);
