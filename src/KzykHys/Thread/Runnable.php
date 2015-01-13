@@ -12,7 +12,5 @@ namespace KzykHys\Thread;
  */
 interface Runnable
 {
-
     public function run();
-
-} 
+}

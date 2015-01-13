@@ -14,7 +14,6 @@ namespace KzykHys\Parallel;
  */
 class Server
 {
-
     /**
      * @var Server
      */
@@ -34,6 +33,11 @@ class Server
      * @var bool
      */
     private $listening = false;
+
+    /**
+     * @var
+     */
+    private $data;
 
     /**
      * @return Server
@@ -71,6 +75,10 @@ class Server
         $this->file = sys_get_temp_dir() . '/parallel' . posix_getpid() . '.sock';
         $address    = 'unix://' . $this->file;
 
+        if (file_exists($this->file)) {
+            unlink($this->file);
+        }
+
         if (($this->socket = stream_socket_server($address)) === false) {
             // @codeCoverageIgnoreStart
             throw new \RuntimeException('Failed to open unix socket: ' . $address);
@@ -103,7 +111,9 @@ class Server
 
         fclose($client);
 
-        return unserialize($data);
+        $this->data = unserialize($data);
+
+        return true;
     }
 
     /**
@@ -116,4 +126,19 @@ class Server
         $this->listening = false;
     }
 
-} 
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    public function killZombie()
+    {
+        if (!is_null($this->socket) && get_resource_type($this->socket) != 'Unknown') {
+            fclose($this->socket);
+        }
+
+        $this->listening = false;
+
+        return true;
+    }
+}

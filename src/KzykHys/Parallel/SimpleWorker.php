@@ -16,7 +16,6 @@ use KzykHys\Thread\Runnable;
  */
 class SimpleWorker implements Runnable
 {
-
     /**
      * @var callable
      */
@@ -42,7 +41,7 @@ class SimpleWorker implements Runnable
      */
     public function run()
     {
-        return call_user_func_array($this->callable, $this->args);
+        $return = call_user_func_array($this->callable, $this->args);
+        return $return;
     }
-
 }
